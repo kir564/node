@@ -28,7 +28,9 @@ document.addEventListener('click', (e) => {
 
     if (title !== null) {
       edit(title, id).then(() => {
-        e.target.closest('li').firstChild.textContent = title;
+        const note = e.target.closest('li');
+        note.firstChild.textContent = title;
+        note.querySelector('[data-note]').dataset.note = title;
       });
     }
   }
