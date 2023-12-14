@@ -6,16 +6,24 @@ const getNotes = async () => {
   return notes;
 };
 
-const addNote = async (title) => {
-  Note.create({ title });
+const addNote = async (title, owner) => {
+  Note.create({ title, owner });
 };
 
-const removeNote = async (noteId) => {
-  await Note.deleteOne({ _id: noteId });
+const removeNote = async (id, owner) => {
+  const result = await Note.deleteOne({ _id: id, owner });
+
+  if (result.matchedCount === 0) {
+    throw new Error('No note for delete');
+  }
 };
 
-const editNote = async ({ id, title }) => {
-  await Note.updateOne({ _id: id }, { title });
+const editNote = async ({ id, title, owner }) => {
+  const result = await Note.updateOne({ _id: id, owner }, { title });
+
+  if (result.matchedCount === 0) {
+    throw new Error('No note for edit');
+  }
 };
 
 module.exports = {

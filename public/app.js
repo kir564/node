@@ -29,7 +29,7 @@ document.addEventListener('click', (e) => {
     if (title !== null) {
       edit(title, id).then(() => {
         const note = e.target.closest('li');
-        note.firstChild.textContent = title;
+        note.querySelector('span').textContent = title;
         note.querySelector('[data-note]').dataset.note = title;
       });
     }
